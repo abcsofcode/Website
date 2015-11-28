@@ -17,7 +17,15 @@
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <p class="navbar-text">Signed in as </p>
+        <?php 
+
+          if(!isset($_SESSION['username'])){
+            echo '<li><a href="login.php">login</a></li>';
+          } else {
+            echo '<p class="navbar-text">Signed in as ' . $_SESSION['username'] . '</p>';
+          }
+
+        ?>
           </ul>
         </li>
       </ul>
