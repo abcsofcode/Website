@@ -2,8 +2,9 @@
 
 	$db = mysqli_connect("localhost", "hackathon", "mjpE544~", "hackathon");
 
-	if (!$link) {
+	if (!$db) {
 	 	echo mysqli_connect_error();
+	 	exit;
 	}
 
 	$username = $_POST['username'];
@@ -12,8 +13,10 @@
 	$query = 'SELECT * FROM users WHERE username = "' . $username . '" AND password="' . $password . '";';
 	$result = mysqli_query($db, $query);
 
-	if (empty($result)) {
-		echo 'No login';
+	if ($result->num_rows == 0) {
+		$url = '../login.php';
+		header('Location: ' . $url);
+		die();
 	} else {
 		$row = mysqli_fetch_assoc($result);
 	  	session_start();
