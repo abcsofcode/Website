@@ -1,0 +1,35 @@
+.list-group-internal{
+	list-style-type: none;
+	padding: 0;
+}
+
+.list-group-item-internal{
+	
+}
+
+.small-text{
+	font-size: 10px;
+}
+
+.medium-text{
+
+}
+
+.large-text{
+	font-size: 29px;
+}
+
+.faux-footer{
+	margin-top: 20px;
+}
+
+.remove{
+	color: yellow;
+	text-decoration: underline;
+	float: right;
+}
+
+.remove:hover{
+	color: #ffcc00;
+	cursor: pointer;
+}

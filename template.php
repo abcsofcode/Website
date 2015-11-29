@@ -1,3 +1,5 @@
+<?php include 'partials/preprocess.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>

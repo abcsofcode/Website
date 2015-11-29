@@ -1,3 +1,5 @@
+<?php include 'partials/preprocess.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -6,7 +8,7 @@
     	<title>LemonAide</title>
   	</head>
   	<body>
-	    <?php include 'partials/menu.php'; ?>
+	    <?php //include 'partials/menu.php'; ?>
 	    <div class="container">
 	      	<div class="page-header">
 	        	<h1>Login</h1>

@@ -22,7 +22,7 @@
           if(!isset($_SESSION['username'])){
             echo '<li><a href="login.php">login</a></li>';
           } else {
-            echo '<p class="navbar-text">Signed in as ' . $_SESSION['username'] . '</p>';
+            echo '<p class="navbar-text">Signed in as ' . $_SESSION['username'] . '</p> <li><a href="logout.php">Logout</a></li>';
           }
 
         ?>
