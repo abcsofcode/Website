@@ -47,7 +47,7 @@
                 </li>
                 <?php 
                   // Find any recall matches for this vehicle
-                  $query = 'SELECT recall_number, manufacturer_recall_number, category_en, units_affected, system_type_en, notification_type_en, comment_en FROM recalls WHERE year = ' . $year . ' and make = "' . $make . '" and model = "' . $model . '";';
+                  $query = 'SELECT DISTINCT recall_number, manufacturer_recall_number, category_en, units_affected, system_type_en, notification_type_en, comment_en FROM recalls WHERE year = ' . $year . ' and make = "' . $make . '" and model = "' . $model . '";';
                   $res = mysqli_query($db, $query);
 
                   if($res->num_rows == 0){

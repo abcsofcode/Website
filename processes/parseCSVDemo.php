@@ -1,14 +1,14 @@
 <?php 
-	set_time_limit(0);
+    set_time_limit(0);
 
-	$db = mysqli_connect("localhost", "hackathon", "mjpE544~", "hackathon");
+    $db = mysqli_connect("localhost", "hackathon", "mjpE544~", "hackathon");
 
     if (!$db) {
         echo mysqli_connect_error();
         exit;
     }
 
-	$file = file_get_contents('../thing.csv');   
+    $file = file_get_contents('../thing.csv');   
 
     //Read CSV file from link
     // $curlSession = curl_init();
@@ -29,7 +29,7 @@
     //Save current recalls into variable for reuse
     $rr = array();
     while($r = mysqli_fetch_assoc($result)){
-    	array_push($rr, $r);
+        array_push($rr, $r);
     }
 
     $cont = false;
@@ -38,7 +38,7 @@
         $row = str_getcsv($row, ";"); 
 
         foreach ($row as &$deeper) {
-        	$cont = false;
+            $cont = false;
             $deeper = str_getcsv($deeper);
 
             if(trim($deeper[0]) == "RECALL_NUMBER_NUM"){
@@ -46,25 +46,25 @@
             }
 
             foreach($rr as $a){
-            	// Check for duplicates from new 60 day recalls
-            	if($a['recall_number'] == $deeper[0]){
-            		if(checkNull($a['year']) == $deeper[1]){
-	            		if(checkNull($a['manufacturer_recall_number']) == $deeper[2]){
-		            		if(checkNull($a['make']) == $deeper[5]){
-			            		if(checkNull($a['model']) == $deeper[6]){
-			            			//match found
-									$cont = true;
-									break;
-				            	} 
-			            	}
-		            	}
-	            	}
-            	}
+                // Check for duplicates from new 60 day recalls
+                if($a['recall_number'] == $deeper[0]){
+                    if(checkNull($a['year']) == $deeper[1]){
+                        if(checkNull($a['manufacturer_recall_number']) == $deeper[2]){
+                            if(checkNull($a['make']) == $deeper[5]){
+                                if(checkNull($a['model']) == $deeper[6]){
+                                    //match found
+                                    $cont = true;
+                                    break;
+                                } 
+                            }
+                        }
+                    }
+                }
             }
 
             if($cont == true){
-        		continue;
-        	}
+                continue;
+            }
 
             $query = 'INSERT INTO recalls (
                 recall_number,
@@ -96,16 +96,14 @@
             // mysqli_query($db, $query);
 
             //check if any users have new vehicles added and send them a notification
-            $query = 'SELECT * FROM users INNER JOIN user_vehicles ON users.id = user_vehicles.user_id;';
+            $query = 'SELECT * FROM users INNER JOIN user_vehicles ON users.id = user_vehicles.user_id WHERE user_vehicles.deleted = 0;';
             $result = mysqli_query($db, $query);
 
             while($row = mysqli_fetch_assoc($result)){
-                echo '<pre>';
-                print_r($row);
-
-                if($row['year'] == $deeper[1] && $row['make'] == $deeper[5] && $row['model'] == $deeper[6]){
+                if(strtolower($row['year']) == strtolower($deeper[1]) && strtolower($row['make']) == strtolower($deeper[5]) && strtolower($row['model']) == strtolower($deeper[6])){
                     $msg = 'Hello ' . $row['username'] . ', your ' . $row['year'] . ' ' . $row['make'] . ' ' . $row['model'] . ' has been associated with a recall';
 
+                    echo 'trying to send: ' . $msg;
                     $message = array();
                     $reg_id = array();  
 
@@ -132,7 +130,7 @@
         }
     } 
 
-	mysqli_close($db);
+    mysqli_close($db);
 
     function checkEmpty($var){
         if(empty($var)){
@@ -143,25 +141,16 @@
     }
 
     function checkNull($var){
-    	if($var === 'null'){
-    		return '';
-    	} else {
-    		return $var;
-    	}
+        if($var === 'null'){
+            return '';
+        } else {
+            return $var;
+        }
 
     }
 
     //Generic php function to send GCM push notification
     function sendPushNotificationToGCM($registation_ids, $message) {
-        // $mArray = array();
-        // $mArray['m'] = '{"greetMsg":"'. $message .'"}';
-        // $registation_ids = array($registation_ids);
-
-        // sendPushNotificationToGCM(
-        //     $registation_ids, 
-        //     $mArray
-        // );
-
         //Google cloud messaging GCM-API url
         $url = 'https://android.googleapis.com/gcm/send';
         

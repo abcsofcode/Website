@@ -153,14 +153,6 @@
 
     //Generic php function to send GCM push notification
     function sendPushNotificationToGCM($registation_ids, $message) {
-        // $mArray = array();
-        // $mArray['m'] = '{"greetMsg":"'. $message .'"}';
-        // $registation_ids = array($registation_ids);
-
-        // sendPushNotificationToGCM(
-        //     $registation_ids, 
-        //     $mArray
-        // );
 
         //Google cloud messaging GCM-API url
         $url = 'https://android.googleapis.com/gcm/send';
