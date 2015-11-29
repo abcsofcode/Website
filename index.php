@@ -50,19 +50,32 @@
                   $query = 'SELECT recall_number, manufacturer_recall_number, category_en, units_affected, system_type_en, notification_type_en, comment_en FROM recalls WHERE year = ' . $year . ' and make = "' . $make . '" and model = "' . $model . '";';
                   $res = mysqli_query($db, $query);
 
-                  while($r = mysqli_fetch_assoc($res)){
-                    //Print results
+                  if($res->num_rows == 0){
                   ?>
-
+                    
                     <li class="list-group-item">
                       <ul class="list-group-internal">
-                        <li class="list-group-item-internal"><span class="large-text"><?php echo $r['system_type_en']; ?></span> <span><?php echo $r['units_affected']; ?> Units Affected</span></li>
-                        <li class="list-group-item-internal"><?php echo $r['comment_en']; ?></li>
-                        <li class="list-group-item-internal small-text faux-footer">Recall Number: <?php echo $r['recall_number'] ?> | Manufacturer Recall Number: <?php if($r['manufacturer_recall_number'] == "null") echo 'not specified'; else echo $r['manufacturer_recall_number']; ?></li>                        
+                        <li class="list-group-item-internal">Nothing found.</li>
                       </ul>
                     </li>
-                <?php
+  
+                  <?php
+                  } else {
+                    while($r = mysqli_fetch_assoc($res)){
+                        //Print results
+                      ?>
+
+                        <li class="list-group-item">
+                          <ul class="list-group-internal">
+                            <li class="list-group-item-internal"><span class="large-text"><?php echo $r['system_type_en']; ?></span> <span><?php echo $r['units_affected']; ?> Units Affected</span><div style="float: right"><?php echo $r['category_en']; ?></div></li>
+                            <li class="list-group-item-internal"><?php echo $r['comment_en']; ?></li>
+                            <li class="list-group-item-internal small-text faux-footer">Recall Number: <?php echo $r['recall_number'] ?> | Manufacturer Recall Number: <?php if($r['manufacturer_recall_number'] == "null") echo 'not specified'; else echo $r['manufacturer_recall_number']; ?></li>                        
+                          </ul>
+                        </li>
+                    <?php
+                    }
                   }
+                  
                 ?>
               </ul>
             </div>

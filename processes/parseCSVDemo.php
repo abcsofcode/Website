@@ -8,16 +8,16 @@
         exit;
     }
 
-	// $file = file_get_contents('../thing.csv');   
+	$file = file_get_contents('../thing.csv');   
 
     //Read CSV file from link
-    $curlSession = curl_init();
-    curl_setopt($curlSession, CURLOPT_URL, 'data.tc.gc.ca/extracts/vrdb_60days_daily.csv');
-    curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
-    curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+    // $curlSession = curl_init();
+    // curl_setopt($curlSession, CURLOPT_URL, 'data.tc.gc.ca/extracts/vrdb_60days_daily.csv');
+    // curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+    // curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
 
-    $file = curl_exec($curlSession);
-    curl_close($curlSession);
+    // $file = curl_exec($curlSession);
+    // curl_close($curlSession);
 
     //read csv into strings
     $thing = str_getcsv($file, "\n");
@@ -93,7 +93,7 @@
                 checkEmpty($deeper[12]) . '", "' . 
                 checkEmpty($deeper[13]) . '");';     
 
-            mysqli_query($db, $query);
+            // mysqli_query($db, $query);
 
             //check if any users have new vehicles added and send them a notification
             $query = 'SELECT * FROM users INNER JOIN user_vehicles ON users.id = user_vehicles.user_id;';

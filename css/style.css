@@ -24,12 +24,24 @@
 }
 
 .remove{
-	color: yellow;
+	color: #CFD600;
 	text-decoration: underline;
 	float: right;
 }
 
 .remove:hover{
-	color: #ffcc00;
+	color: yellow;
 	cursor: pointer;
+}
+
+/* bootstrap overrides */
+.active{
+	color: #CFD600 !important;
+	font-size: 18px;
+}
+
+.nav>li>a:hover {
+	color: black !important;
+	background-color: #CFD600 !important;
+	background-image: none;
 }
